@@ -5,6 +5,7 @@ package io.github.ytg1234.recipeconditions.condition;
  *
  * @author YTG1234
  */
+@FunctionalInterface
 public interface RecipeCondition {
 
     /**
@@ -21,5 +22,4 @@ public interface RecipeCondition {
      * @return if the value matched
      */
     boolean check(String value); // Yes this is basically a Predicate<String>
-
 }

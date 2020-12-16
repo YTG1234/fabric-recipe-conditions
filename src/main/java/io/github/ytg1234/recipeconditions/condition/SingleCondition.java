@@ -65,9 +65,9 @@ public class SingleCondition {
     }
 
     /**
-     * A convenient way to check if the internal condition matched.
+     * A convenient way to check if the internal condition matched for all values.
      *
-     * @return whether the condition was matched
+     * @return whether the condition matched
      */
     public boolean check() {
         if (getValue() != null) {
