@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "recipeconditions",
+  "version": "${version}",
+  "name": "Fabric Recipe Conditions",
+  "description": "A library that adds recipe conditions",
+  "authors": [
+    "YTG1234"
+  ],
+  "contributors": [],
+  "contact": {},
+  "license": "LGPL-3.0",
+  "icon": "assets/recipeconditions/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+        "io.github.ytg1234.recipeconditions.RecipeConditionsMod"
+    ],
+    "client": [],
+    "server": []
+  },
+  "mixins": [
+    "recipeconditions.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.10.8",
+    "fabric": "*"
+  }
+}
