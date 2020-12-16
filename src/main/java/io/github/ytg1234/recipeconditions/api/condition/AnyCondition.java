@@ -1,4 +1,4 @@
-package io.github.ytg1234.recipeconditions.condition;
+package io.github.ytg1234.recipeconditions.api.condition;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author YTG1234
  */
-public class AnyCondition {
+public final class AnyCondition {
     @NotNull
     private final DefaultedList<EveryCondition> conditions;
 
@@ -48,6 +48,6 @@ public class AnyCondition {
      * @return whether the array matches
      */
     public boolean check() {
-        return conditions.stream().anyMatch(EveryCondition::check);
+        return getConditions().stream().anyMatch(EveryCondition::check);
     }
 }

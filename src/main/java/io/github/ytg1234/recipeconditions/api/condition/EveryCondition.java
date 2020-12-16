@@ -1,4 +1,4 @@
-package io.github.ytg1234.recipeconditions.condition;
+package io.github.ytg1234.recipeconditions.api.condition;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @author YTG1234
  */
-public class EveryCondition {
+public final class EveryCondition {
     public static final EveryCondition EMPTY = new EveryCondition(DefaultedList.of());
     @NotNull
     private final DefaultedList<SingleCondition> conditions;

@@ -1,7 +1,7 @@
-package io.github.ytg1234.recipeconditions.condition.registry;
+package io.github.ytg1234.recipeconditions.registry;
 
 import io.github.ytg1234.recipeconditions.RecipeConditionsMod;
-import io.github.ytg1234.recipeconditions.condition.RecipeCondition;
+import io.github.ytg1234.recipeconditions.api.condition.RecipeCondition;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;

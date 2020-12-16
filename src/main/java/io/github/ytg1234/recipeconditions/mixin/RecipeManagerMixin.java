@@ -1,7 +1,7 @@
 package io.github.ytg1234.recipeconditions.mixin;
 
 import com.google.gson.JsonElement;
-import io.github.ytg1234.recipeconditions.condition.AnyCondition;
+import io.github.ytg1234.recipeconditions.api.condition.AnyCondition;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.recipe.RecipeManager;
 import net.minecraft.resource.ResourceManager;

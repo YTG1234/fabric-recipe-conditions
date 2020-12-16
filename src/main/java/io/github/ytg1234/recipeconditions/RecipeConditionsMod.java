@@ -1,6 +1,6 @@
 package io.github.ytg1234.recipeconditions;
 
-import io.github.ytg1234.recipeconditions.condition.registry.RecipeConditions;
+import io.github.ytg1234.recipeconditions.registry.RecipeConditions;
 import net.fabricmc.api.ModInitializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

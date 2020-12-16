@@ -1,9 +1,9 @@
-package io.github.ytg1234.recipeconditions.condition;
+package io.github.ytg1234.recipeconditions.api.condition;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import io.github.ytg1234.recipeconditions.condition.registry.RecipeConditions;
-import io.github.ytg1234.recipeconditions.condition.registry.RecipeConditionsRegistries;
+import io.github.ytg1234.recipeconditions.registry.RecipeConditions;
+import io.github.ytg1234.recipeconditions.registry.RecipeConditionsRegistries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.NotNull;
@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author YTG1234
  */
-public class SingleCondition {
+public final class SingleCondition {
     public static final SingleCondition EMPTY = new SingleCondition(RecipeConditions.EMPTY, "");
     @NotNull
     private final RecipeCondition condition;

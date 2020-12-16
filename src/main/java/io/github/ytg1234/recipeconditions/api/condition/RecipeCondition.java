@@ -1,4 +1,4 @@
-package io.github.ytg1234.recipeconditions.condition;
+package io.github.ytg1234.recipeconditions.api.condition;
 
 /**
  * Represents a recipe condition that can be registered.
