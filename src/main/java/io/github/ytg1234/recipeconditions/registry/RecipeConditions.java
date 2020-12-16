@@ -12,6 +12,7 @@ public final class RecipeConditions {
             register("mod_loaded", modid -> FabricLoader.getInstance().isModLoaded(modid));
     public static final RecipeCondition EMPTY = register("empty", x -> true);
 
+    // region Registry Conditions
     public static final RecipeCondition ITEM_REGISTERED = register("item", Registry.ITEM);
     public static final RecipeCondition BLOCK_REGISTERED = register("block", Registry.BLOCK);
     public static final RecipeCondition ENTITY_TYPE_REGISTERED = register("entity_type", Registry.ENTITY_TYPE);
@@ -33,13 +34,75 @@ public final class RecipeConditions {
     public static final RecipeCondition POS_RULE_TEST_REGISTERED = register("pos_rule_test", Registry.POS_RULE_TEST);
     public static final RecipeCondition SCREEN_HANDLER_REGISTERED = register("screen_handler", Registry.SCREEN_HANDLER);
     public static final RecipeCondition RECIPE_TYPE_REGISTERED = register("recipe_type", Registry.RECIPE_TYPE);
-    public static final RecipeCondition RECIPE_SERIALIZER_REGISTERED = register("recipe_serializer", Registry.RECIPE_SERIALIZER);
+    public static final RecipeCondition
+            RECIPE_SERIALIZER_REGISTERED =
+            register("recipe_serializer", Registry.RECIPE_SERIALIZER);
     public static final RecipeCondition ATTRIBUTE_REGISTERED = register("attribute", Registry.ATTRIBUTE);
     public static final RecipeCondition STAT_TYPE_REGISTERED = register("stat_type", Registry.STAT_TYPE);
     public static final RecipeCondition VILLAGER_TYPE_REGISTERED = register("villager_type", Registry.VILLAGER_TYPE);
-    public static final RecipeCondition VILLAGER_PROFESSION_REGISTERED = register("villager_profession", Registry.VILLAGER_PROFESSION);
-    public static final RecipeCondition POINT_OF_INTEREST_TYPE_REGISTERED = register("point_of_interest_type", Registry.POINT_OF_INTEREST_TYPE);
-    public static final RecipeCondition MEMORY_MODULE_TYPE_REGISTERED = register("memory_module_type", Registry.MEMORY_MODULE_TYPE); // I don't even know what this is
+    public static final RecipeCondition
+            VILLAGER_PROFESSION_REGISTERED =
+            register("villager_profession", Registry.VILLAGER_PROFESSION);
+    public static final RecipeCondition
+            POINT_OF_INTEREST_TYPE_REGISTERED =
+            register("point_of_interest_type", Registry.POINT_OF_INTEREST_TYPE);
+    public static final RecipeCondition
+            MEMORY_MODULE_TYPE_REGISTERED =
+            register("memory_module_type", Registry.MEMORY_MODULE_TYPE);
+            // I don't even know what this is
+    public static final RecipeCondition SENSOR_TYPE_REGISTERED = register("sensor_type", Registry.SENSOR_TYPE);
+    public static final RecipeCondition SCHEDULE_REGISTERED = register("schedule", Registry.SCHEDULE);
+    public static final RecipeCondition ACTIVITY_REGISTERED = register("activity", Registry.ACTIVITY);
+    public static final RecipeCondition
+            LOOT_POOL_ENTRY_TYPE_REGISTERED =
+            register("loot_pool_entry_type", Registry.LOOT_POOL_ENTRY_TYPE);
+    public static final RecipeCondition
+            LOOT_FUNCTION_TYPE_REGISTERED =
+            register("loot_function_type", Registry.LOOT_FUNCTION_TYPE);
+    public static final RecipeCondition
+            LOOT_CONDITION_TYPE_REGISTERED =
+            register("loot_condition_type", Registry.LOOT_CONDITION_TYPE);
+    public static final RecipeCondition
+            SURFACE_BUILDER_REGISTERED =
+            register("surface_builder", Registry.SURFACE_BUILDER);
+    public static final RecipeCondition CARVER_REGISTERED = register("carver", Registry.CARVER);
+    public static final RecipeCondition FEATURE_REGISTERED = register("feature", Registry.FEATURE);
+    public static final RecipeCondition
+            STRUCTURE_FEATURE_REGISTERED =
+            register("structure_feature", Registry.STRUCTURE_FEATURE);
+    public static final RecipeCondition
+            STRUCTURE_PIECE_REGISTERED =
+            register("structure_piece", Registry.STRUCTURE_PIECE);
+    public static final RecipeCondition DECORATOR_REGISTERED = register("decorator", Registry.DECORATOR);
+    public static final RecipeCondition
+            BLOCK_STATE_PROVIDER_TYPE_REGISTERED =
+            register("block_state_provider_type", Registry.BLOCK_STATE_PROVIDER_TYPE);
+    public static final RecipeCondition
+            BLOCK_PLACER_TYPE_REGISTERED =
+            register("block_placer_type", Registry.BLOCK_PLACER_TYPE);
+    public static final RecipeCondition
+            FOLIAGE_PLACER_TYPE_REGISTERED =
+            register("foliage_placer_type", Registry.FOLIAGE_PLACER_TYPE);
+    public static final RecipeCondition
+            TRUNK_PLACER_TYPE_REGISTERED =
+            register("trunk_placer_type", Registry.TRUNK_PLACER_TYPE);
+    public static final RecipeCondition
+            TREE_DECORATOR_TYPE_REGISTERED =
+            register("tree_decorator_type", Registry.TREE_DECORATOR_TYPE);
+    public static final RecipeCondition
+            FEATURE_SIZE_TYPE_REGISTERED =
+            register("feature_size_type", Registry.FEATURE_SIZE_TYPE);
+    public static final RecipeCondition BIOME_SOURCE_REGISTERED = register("biome_source", Registry.BIOME_SOURCE);
+    public static final RecipeCondition
+            CHUNK_GENERATOR_REGISTERED =
+            register("chunk_generator", Registry.CHUNK_GENERATOR);
+    public static final RecipeCondition
+            STRUCTURE_PROCESSOR_REGISTERED =
+            register("structure_processor", Registry.STRUCTURE_PROCESSOR);
+    public static final RecipeCondition
+            STRUCTURE_POOL_ELEMENT_REGISTERED =
+            register("structure_pool_element", Registry.STRUCTURE_POOL_ELEMENT);
+    // endregion
 
     private RecipeConditions() {
     }
