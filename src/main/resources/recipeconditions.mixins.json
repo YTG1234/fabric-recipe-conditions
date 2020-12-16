@@ -2,7 +2,7 @@
     "required": true,
     "package": "io.github.ytg1234.recipeconditions.mixin",
     "compatibilityLevel": "JAVA_8",
-    "mixins": ["RecipeManagerMixin", "ShapelessRecipe$SerializerAcessor"],
+    "mixins": ["RecipeManagerMixin"],
     "client": [],
     "server": [],
     "injectors": {
