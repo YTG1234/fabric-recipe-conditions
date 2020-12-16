@@ -20,10 +20,10 @@
     },
     "conditions": [
         {
-            "recipeconditions:modloaded": "optifabric"
+            "recipeconditions:mod_loaded": "optifabric"
         },
         {
-            "recipeconditions:modloaded": "campanion"
+            "recipeconditions:mod_loaded": "campanion"
         }
     ]
 }
