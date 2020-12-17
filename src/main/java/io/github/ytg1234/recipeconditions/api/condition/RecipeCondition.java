@@ -21,5 +21,5 @@ public interface RecipeCondition {
      *
      * @return if the value matched
      */
-    boolean check(String value); // Yes this is basically a Predicate<String>
+    boolean check(String value);
 }

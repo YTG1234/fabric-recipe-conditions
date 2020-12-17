@@ -10,7 +10,6 @@ public final class RecipeConditions {
     public static final RecipeCondition
             MOD_LOADED =
             register("mod_loaded", modid -> FabricLoader.getInstance().isModLoaded(modid));
-    public static final RecipeCondition EMPTY = register("empty", x -> true);
 
     // region Registry Conditions
     public static final RecipeCondition ITEM_REGISTERED = register("item", Registry.ITEM);

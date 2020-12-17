@@ -8,12 +8,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Map;
 
 /**
- * Represents a list of {@link SingleCondition EntryInRecipes} that all of them have to match for this list to match.
+ * Represents a list of {@link SingleCondition}s, that all
+ * of them have to match for this list to match.
  *
  * @author YTG1234
  */
 public final class EveryCondition {
-    public static final EveryCondition EMPTY = new EveryCondition(DefaultedList.of());
     @NotNull
     private final DefaultedList<SingleCondition> conditions;
 

@@ -14,6 +14,10 @@ import org.jetbrains.annotations.NotNull;
  * @author YTG1234
  */
 public final class AnyCondition {
+    /**
+     * The internal array of {@link EveryCondition}s, which is used when
+     * matching.
+     */
     @NotNull
     private final DefaultedList<EveryCondition> conditions;
 

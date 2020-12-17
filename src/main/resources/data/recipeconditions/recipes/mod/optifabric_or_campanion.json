@@ -1,7 +1,7 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "ACB"
+        "CBA"
     ],
     "key": {
         "A": {
@@ -20,7 +20,10 @@
     },
     "conditions": [
         {
-            "recipeconditions:mod_loaded": ["optifabric", "campanion"]
+            "recipeconditions:mod_loaded": "optifabric"
+        },
+        {
+            "recipeconditions:mod_loaded": "campanion"
         }
     ]
 }

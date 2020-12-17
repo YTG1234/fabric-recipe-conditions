@@ -18,7 +18,6 @@ import java.util.Map;
  * @author YTG1234
  */
 public final class SingleCondition {
-    public static final SingleCondition EMPTY = new SingleCondition(RecipeConditions.EMPTY, "");
     @NotNull
     private final RecipeCondition condition;
     @Nullable
