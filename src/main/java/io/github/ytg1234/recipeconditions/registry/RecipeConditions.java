@@ -102,19 +102,24 @@ public final class RecipeConditions {
     public static final RecipeCondition
             STRUCTURE_POOL_ELEMENT_REGISTERED =
             register("structure_pool_element", Registry.STRUCTURE_POOL_ELEMENT);
+    public static final RecipeCondition REGISTRY_REGISTERED = register("registry", Registry.REGISTRIES);
     // endregion
 
-    private RecipeConditions() {
+    static {
+        RecipeConditionsMod.LOGGER.trace("Static Initializer of " + RecipeConditions.class.getName() + " has been called.");
     }
 
-    public static void register() {
+    public static void initMod() {
+        RecipeConditionsMod.LOGGER.info("Registered built-in conditions."); // Static initializer runs before any static method.
     }
 
     private static RecipeCondition register(String id, Registry<?> registry) {
+        RecipeConditionsMod.LOGGER.debug("Registering registry condition for registry " + registry.getKey().getValue().toString());
         return register(id + "_registered", x -> registry.getIds().contains(new Identifier(x)));
     }
 
     private static RecipeCondition register(String id, RecipeCondition cond) {
+        RecipeConditionsMod.LOGGER.debug("Registring condition " + RecipeConditionsMod.MOD_ID + ":" + id);
         return Registry.register(RecipeConditionsRegistries.RECIPE_CONDITION,
                 new Identifier(RecipeConditionsMod.MOD_ID, id),
                 cond
