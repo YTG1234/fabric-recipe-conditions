@@ -18,3 +18,5 @@ Read wiki.
 * `git submodule update --init --recursive --remote --rebase`
 ### Pushing
 * `git push --recurse-submodules=on-demand`
+
+Using a Git GUI tool like SourceTree will make pulling and pushing a lot easier.
