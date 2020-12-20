@@ -2,8 +2,7 @@ package io.github.ytg1234.recipeconditions.api.condition;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
-import io.github.ytg1234.recipeconditions.registry.RecipeConditions;
-import io.github.ytg1234.recipeconditions.registry.RecipeConditionsRegistries;
+import io.github.ytg1234.recipeconditions.api.RecipeConds;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.NotNull;
@@ -51,13 +50,13 @@ public final class SingleCondition {
                 values.add(element.getAsString());
             }
             Identifier conditionId = new Identifier(entry.getKey());
-            RecipeCondition condition = RecipeConditionsRegistries.RECIPE_CONDITION.get(conditionId);
+            RecipeCondition condition = RecipeConds.RECIPE_CONDITION.get(conditionId);
             if (condition == null) throw new JsonParseException("Unknown condition " + conditionId.toString() + "!");
             return new SingleCondition(condition, values);
         } else {
             String value = entry.getValue().getAsString();
             Identifier conditionId = new Identifier(entry.getKey());
-            RecipeCondition condition = RecipeConditionsRegistries.RECIPE_CONDITION.get(conditionId);
+            RecipeCondition condition = RecipeConds.RECIPE_CONDITION.get(conditionId);
             if (condition == null) throw new JsonParseException("Unknown condition " + conditionId.toString() + "!");
             return new SingleCondition(condition, value);
         }
@@ -74,7 +73,7 @@ public final class SingleCondition {
         } else if (getValues() != null) {
             return getValues().stream().allMatch(getCondition()::check);
         } else {
-            throw new RuntimeException("How did this happen? values and value are null!");
+            throw new IllegalStateException("How did this happen? values and value are null!");
         }
     }
 

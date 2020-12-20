@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "io.github.ytg1234.recipeconditions.mixin",
+    "package": "io.github.ytg1234.recipeconditions.impl.mixin",
     "compatibilityLevel": "JAVA_8",
     "mixins": ["RecipeManagerMixin"],
     "client": [],

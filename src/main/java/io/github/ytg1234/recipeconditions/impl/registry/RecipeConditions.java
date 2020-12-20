@@ -1,6 +1,7 @@
-package io.github.ytg1234.recipeconditions.registry;
+package io.github.ytg1234.recipeconditions.impl.registry;
 
-import io.github.ytg1234.recipeconditions.RecipeConditionsMod;
+import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
+import io.github.ytg1234.recipeconditions.api.RecipeConds;
 import io.github.ytg1234.recipeconditions.api.condition.RecipeCondition;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Identifier;
@@ -105,22 +106,23 @@ public final class RecipeConditions {
     // endregion
 
     static {
-        RecipeConditionsMod.LOGGER.trace("Static Initializer of " + RecipeConditions.class.getName() + " has been called.");
+        RecipeCondsConstants.LOGGER.trace("Static Initializer of " + RecipeConditions.class.getName() + " has been called.");
     }
 
     public static void initMod() {
-        RecipeConditionsMod.LOGGER.info("Registered built-in conditions."); // Static initializer runs before any static method.
+        RecipeCondsConstants.LOGGER.info("Registered built-in conditions."); // Static initializer runs before any static method.
     }
 
     private static RecipeCondition register(String id, Registry<?> registry) {
-        RecipeConditionsMod.LOGGER.debug("Registering registry condition for registry " + registry.getKey().getValue().toString());
+        RecipeCondsConstants.LOGGER.debug("Registering registry condition for registry " + registry.getKey().getValue().toString());
         return register(id + "_registered", x -> registry.getIds().contains(new Identifier(x)));
     }
 
     private static RecipeCondition register(String id, RecipeCondition cond) {
-        RecipeConditionsMod.LOGGER.debug("Registring condition " + RecipeConditionsMod.MOD_ID + ":" + id);
-        return Registry.register(RecipeConditionsRegistries.RECIPE_CONDITION,
-                new Identifier(RecipeConditionsMod.MOD_ID, id),
+        RecipeCondsConstants.LOGGER.debug("Registring condition " + RecipeCondsConstants.MOD_ID + ":" + id);
+        return Registry.register(
+                RecipeConds.RECIPE_CONDITION,
+                new Identifier(RecipeCondsConstants.MOD_ID, id),
                 cond
                                 );
     }
