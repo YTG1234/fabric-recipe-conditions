@@ -14,7 +14,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-        "io.github.ytg1234.recipeconditions.registry.RecipeConditions::initMod"
+        "io.github.ytg1234.recipeconditions.impl.registry.RecipeConditions::initMod"
     ],
     "client": [],
     "server": []

@@ -69,9 +69,14 @@ public final class SingleCondition {
      */
     public boolean check() {
         if (getValue() != null) {
-            return getCondition().check(getValue());
+            return getValue().startsWith("!") ?
+                   !getCondition().check(getValue().replace("!", "")) :
+                   getCondition().check(getValue());
         } else if (getValues() != null) {
-            return getValues().stream().allMatch(getCondition()::check);
+            return getValues().stream()
+                    .allMatch(val -> val.startsWith("!") ?
+                                     !getCondition().check(val.replace("!", "")) :
+                                     getCondition().check(val));
         } else {
             throw new IllegalStateException("How did this happen? values and value are null!");
         }

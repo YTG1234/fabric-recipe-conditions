@@ -26,7 +26,7 @@ public class RecipeManagerMixin {
             Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci
                         ) {
         Iterator<Map.Entry<Identifier, JsonElement>> recipes = map.entrySet().iterator(); // Used to avoid a CME
-        while(recipes.hasNext()) {
+        while (recipes.hasNext()) {
             Map.Entry<Identifier, JsonElement> entry = recipes.next();
             logger.debug("Attempting to load recipe " + entry.getKey().toString());
 
