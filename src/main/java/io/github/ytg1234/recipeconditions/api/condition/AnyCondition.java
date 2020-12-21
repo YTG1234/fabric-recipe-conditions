@@ -26,7 +26,7 @@ public final class AnyCondition {
     }
 
     /**
-     * Parses a Json array into a simple list of {@link EveryCondition ObjectInRecipes}.
+     * Parses a Json array into a simple list of {@link EveryCondition}s.
      *
      * @param array the array to be parsed
      *

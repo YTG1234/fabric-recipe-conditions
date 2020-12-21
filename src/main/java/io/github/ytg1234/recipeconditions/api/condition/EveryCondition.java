@@ -22,7 +22,7 @@ public final class EveryCondition {
     }
 
     /**
-     * Parses a Json object to a list of {@link SingleCondition EntryInRecipes}.
+     * Parses a Json object to a list of {@link SingleCondition}s.
      *
      * @param object the object to be parsed
      *

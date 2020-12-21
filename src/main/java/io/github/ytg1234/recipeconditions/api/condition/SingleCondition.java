@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * Represents a Json entry that specifies a condition identifier
- * and either one value or an array of them.
+ * and either one parameter or an array of them.
  *
  * @author YTG1234
  */

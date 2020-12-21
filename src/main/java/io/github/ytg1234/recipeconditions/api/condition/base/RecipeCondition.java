@@ -1,8 +1,5 @@
 package io.github.ytg1234.recipeconditions.api.condition.base;
 
-import com.google.gson.JsonElement;
-import net.fabricmc.loader.api.VersionParsingException;
-
 /**
  * Represents a recipe condition that can be registered.
  *
@@ -12,7 +9,7 @@ import net.fabricmc.loader.api.VersionParsingException;
 public interface RecipeCondition {
 
     /**
-     * Checks if the condition matches a certain value.
+     * Checks if the condition matches a certain parameter.
      * <p>
      * For exmaple, a condition that would match a mod ID if loaded would look like:
      * <code>
@@ -20,7 +17,7 @@ public interface RecipeCondition {
      * </code>
      * </p>
      *
-     * @param param the value to match against
+     * @param param the parameter to match against
      *
      * @return if the value matched
      */
