@@ -22,9 +22,9 @@ public class RecipeManagerMixin {
 
     @Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V",
             at = @At("HEAD"))
-    private void hahaYes(
+    private void processConditions(
             Map<Identifier, JsonElement> map, ResourceManager resourceManager, Profiler profiler, CallbackInfo ci
-                        ) {
+                                  ) {
         Iterator<Map.Entry<Identifier, JsonElement>> recipes = map.entrySet().iterator(); // Used to avoid a CME
         while (recipes.hasNext()) {
             Map.Entry<Identifier, JsonElement> entry = recipes.next();
