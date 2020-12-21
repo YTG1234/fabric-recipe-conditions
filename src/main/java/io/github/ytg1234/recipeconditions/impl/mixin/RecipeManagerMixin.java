@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 @Mixin(RecipeManager.class)
-public class RecipeManagerMixin {
+public abstract class RecipeManagerMixin {
     private static final Logger logger = LogManager.getLogger(RecipeManagerMixin.class);
 
     @Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V",
