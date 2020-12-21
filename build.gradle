@@ -104,7 +104,7 @@ task publishModrinth(type: TaskModrinthUpload) {
     addFile(sourcesJar)
     addFile(jar)
 
-    releaseType = project.unstable ? "beta" : "release"
+    releaseType = project.unstable == "true" ? "beta" : "release"
 
     afterEvaluate {
         tasks.publishModrinth.dependsOn(remapJar)
