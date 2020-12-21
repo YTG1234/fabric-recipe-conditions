@@ -3,6 +3,8 @@ package io.github.ytg1234.recipeconditions.api.condition;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import io.github.ytg1234.recipeconditions.api.RecipeConds;
+import io.github.ytg1234.recipeconditions.api.condition.base.RecipeCondition;
+import io.github.ytg1234.recipeconditions.api.condition.base.RecipeConditionParameter;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.NotNull;
@@ -20,20 +22,38 @@ public final class SingleCondition {
     @NotNull
     private final RecipeCondition condition;
     @Nullable
-    private final String value;
+    private final RecipeConditionParameter param;
     @Nullable
-    private final DefaultedList<String> values;
+    private final DefaultedList<RecipeConditionParameter> params;
 
-    public SingleCondition(@NotNull RecipeCondition condition, @NotNull String value) {
-        this.condition = condition;
-        this.value = value;
-        this.values = null;
+    private final boolean negated;
+
+    public SingleCondition(@NotNull RecipeCondition condition, @NotNull RecipeConditionParameter param) {
+        this(condition, param, false);
     }
 
-    public SingleCondition(@NotNull RecipeCondition condition, @NotNull DefaultedList<String> values) {
+    public SingleCondition(
+            @NotNull RecipeCondition condition, @NotNull RecipeConditionParameter param, boolean negated
+                          ) {
         this.condition = condition;
-        this.values = values;
-        this.value = null;
+        this.param = param;
+        this.params = null;
+        this.negated = negated;
+    }
+
+    public SingleCondition(
+            @NotNull RecipeCondition condition, @NotNull DefaultedList<RecipeConditionParameter> params
+                          ) {
+        this(condition, params, false);
+    }
+
+    public SingleCondition(
+            @NotNull RecipeCondition condition, @NotNull DefaultedList<RecipeConditionParameter> params, boolean negated
+                          ) {
+        this.condition = condition;
+        this.params = params;
+        this.param = null;
+        this.negated = negated;
     }
 
     /**
@@ -45,20 +65,32 @@ public final class SingleCondition {
      */
     public static SingleCondition fromJson(@NotNull Map.Entry<String, JsonElement> entry) {
         if (entry.getValue().isJsonArray()) {
-            DefaultedList<String> values = DefaultedList.of();
+            DefaultedList<RecipeConditionParameter> values = DefaultedList.of();
             for (JsonElement element : entry.getValue().getAsJsonArray()) {
-                values.add(element.getAsString());
+                values.add(RecipeConditionParameter.fromJsonElement(element));
             }
-            Identifier conditionId = new Identifier(entry.getKey());
+            boolean negated = false;
+            if (entry.getKey().startsWith("!")) negated = true;
+            Identifier conditionId = new Identifier(entry.getKey().replace("!", ""));
             RecipeCondition condition = RecipeConds.RECIPE_CONDITION.get(conditionId);
-            if (condition == null) throw new JsonParseException("Unknown condition " + conditionId.toString() + "!");
-            return new SingleCondition(condition, values);
+            if (condition == null) {
+                throw new JsonParseException(new IllegalArgumentException("Unknown condition " +
+                                                                          conditionId.toString() +
+                                                                          "!"));
+            }
+            return new SingleCondition(condition, values, negated);
         } else {
-            String value = entry.getValue().getAsString();
-            Identifier conditionId = new Identifier(entry.getKey());
+            JsonElement value = entry.getValue();
+            boolean negated = false;
+            if (entry.getKey().startsWith("!")) negated = true;
+            Identifier conditionId = new Identifier(entry.getKey().replace("!", ""));
             RecipeCondition condition = RecipeConds.RECIPE_CONDITION.get(conditionId);
-            if (condition == null) throw new JsonParseException("Unknown condition " + conditionId.toString() + "!");
-            return new SingleCondition(condition, value);
+            if (condition == null) {
+                throw new JsonParseException(new IllegalArgumentException("Unknown condition " +
+                                                                          conditionId.toString() +
+                                                                          "!"));
+            }
+            return new SingleCondition(condition, RecipeConditionParameter.fromJsonElement(value), negated);
         }
     }
 
@@ -68,32 +100,27 @@ public final class SingleCondition {
      * @return whether the condition matched
      */
     public boolean check() {
-        if (getValue() != null) {
-            return getValue().startsWith("!") ?
-                   !getCondition().check(getValue().replace("!", "")) :
-                   getCondition().check(getValue());
-        } else if (getValues() != null) {
-            return getValues().stream()
-                    .allMatch(val -> val.startsWith("!") ?
-                                     !getCondition().check(val.replace("!", "")) :
-                                     getCondition().check(val));
+        if (getParam() != null) {
+            return negated != condition.check(param);
+        } else if (getParams() != null) {
+            return getParams().stream().allMatch(condition::check);
         } else {
-            throw new IllegalStateException("How did this happen? values and value are null!");
+            throw new IllegalStateException("How did this happen? params and param are null!");
         }
     }
 
     @Nullable
-    public String getValue() {
-        return value;
+    public RecipeConditionParameter getParam() {
+        return param;
+    }
+
+    @Nullable
+    public DefaultedList<RecipeConditionParameter> getParams() {
+        return params;
     }
 
     @NotNull
     public RecipeCondition getCondition() {
         return condition;
-    }
-
-    @Nullable
-    public DefaultedList<String> getValues() {
-        return values;
     }
 }

@@ -2,15 +2,29 @@ package io.github.ytg1234.recipeconditions.impl.registry;
 
 import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
 import io.github.ytg1234.recipeconditions.api.RecipeConds;
-import io.github.ytg1234.recipeconditions.api.condition.RecipeCondition;
+import io.github.ytg1234.recipeconditions.api.condition.base.RecipeCondition;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.Version;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+
+import java.util.Optional;
 
 public final class RecipeConditions {
     public static final RecipeCondition
             MOD_LOADED =
-            register("mod_loaded", modid -> FabricLoader.getInstance().isModLoaded(modid));
+            register("mod_loaded", modid -> FabricLoader.getInstance().isModLoaded(modid.string()));
+    public static final RecipeCondition MOD_LOADED_ADVANCMED = register("mod_loaded_advanced", data -> {
+        Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(data.object().get("id").getAsString());
+        if (mod.isPresent()) {
+            Version version = mod.get().getMetadata().getVersion();
+            System.out.println(version.toString());
+            return version.toString().equals(data.object().get("version").getAsString());
+        } else {
+            return false;
+        }
+    });
 
     // region Registry Conditions
     public static final RecipeCondition ITEM_REGISTERED = register("item", Registry.ITEM);
@@ -49,7 +63,7 @@ public final class RecipeConditions {
     public static final RecipeCondition
             MEMORY_MODULE_TYPE_REGISTERED =
             register("memory_module_type", Registry.MEMORY_MODULE_TYPE);
-            // I don't even know what this is
+    // I don't even know what this is
     public static final RecipeCondition SENSOR_TYPE_REGISTERED = register("sensor_type", Registry.SENSOR_TYPE);
     public static final RecipeCondition SCHEDULE_REGISTERED = register("schedule", Registry.SCHEDULE);
     public static final RecipeCondition ACTIVITY_REGISTERED = register("activity", Registry.ACTIVITY);
@@ -106,7 +120,9 @@ public final class RecipeConditions {
     // endregion
 
     static {
-        RecipeCondsConstants.LOGGER.trace("Static Initializer of " + RecipeConditions.class.getName() + " has been called.");
+        RecipeCondsConstants.LOGGER.trace("Static Initializer of " +
+                                          RecipeConditions.class.getName() +
+                                          " has been called.");
     }
 
     public static void initMod() {
@@ -114,16 +130,13 @@ public final class RecipeConditions {
     }
 
     private static RecipeCondition register(String id, Registry<?> registry) {
-        RecipeCondsConstants.LOGGER.debug("Registering registry condition for registry " + registry.getKey().getValue().toString());
-        return register(id + "_registered", x -> registry.getIds().contains(new Identifier(x)));
+        RecipeCondsConstants.LOGGER.debug("Registering registry condition for registry " +
+                                          registry.getKey().getValue().toString());
+        return register(id + "_registered", x -> registry.getIds().contains(new Identifier(x.string())));
     }
 
     private static RecipeCondition register(String id, RecipeCondition cond) {
         RecipeCondsConstants.LOGGER.debug("Registring condition " + RecipeCondsConstants.MOD_ID + ":" + id);
-        return Registry.register(
-                RecipeConds.RECIPE_CONDITION,
-                new Identifier(RecipeCondsConstants.MOD_ID, id),
-                cond
-                                );
+        return Registry.register(RecipeConds.RECIPE_CONDITION, new Identifier(RecipeCondsConstants.MOD_ID, id), cond);
     }
 }

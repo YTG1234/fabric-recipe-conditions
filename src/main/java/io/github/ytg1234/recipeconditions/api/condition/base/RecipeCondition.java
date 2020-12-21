@@ -1,4 +1,7 @@
-package io.github.ytg1234.recipeconditions.api.condition;
+package io.github.ytg1234.recipeconditions.api.condition.base;
+
+import com.google.gson.JsonElement;
+import net.fabricmc.loader.api.VersionParsingException;
 
 /**
  * Represents a recipe condition that can be registered.
@@ -13,13 +16,13 @@ public interface RecipeCondition {
      * <p>
      * For exmaple, a condition that would match a mod ID if loaded would look like:
      * <code>
-     * modid -> FabricLoader.getInstance().isModLoaded(modid)
+     * modid -> FabricLoader.getInstance().isModLoaded(modid.string())
      * </code>
      * </p>
      *
-     * @param value the value to match against
+     * @param param the value to match against
      *
      * @return if the value matched
      */
-    boolean check(String value);
+    boolean check(RecipeConditionParameter param);
 }
