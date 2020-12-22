@@ -140,3 +140,11 @@ task publishModrinth(type: TaskModrinthUpload) {
         tasks.publishModrinth.dependsOn(sourcesJar)
     }
 }
+
+task allPublish {
+    afterEvaluate {
+        tasks.allPublish.dependsOn(build)
+        tasks.allPublish.dependsOn(publish)
+        tasks.allPublish.dependsOn(publishModrinth)
+    }
+}
