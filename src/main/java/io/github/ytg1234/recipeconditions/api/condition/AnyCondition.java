@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +27,7 @@ public final class AnyCondition {
     }
 
     /**
-     * Parses a Json array into a simple list of {@link EveryCondition ObjectInRecipes}.
+     * Parses a Json array into a simple list of {@link EveryCondition}s.
      *
      * @param array the array to be parsed
      *
@@ -41,17 +42,18 @@ public final class AnyCondition {
         return new AnyCondition(list);
     }
 
-    @NotNull
-    public DefaultedList<EveryCondition> getConditions() {
-        return conditions;
-    }
-
     /**
      * Checks if the array matches - if any of its elements match.
      *
      * @return whether the array matches
      */
     public boolean check() {
+        RecipeCondsConstants.LOGGER.debug("Checking an AnyCondition...");
         return getConditions().stream().anyMatch(EveryCondition::check);
+    }
+
+    @NotNull
+    public DefaultedList<EveryCondition> getConditions() {
+        return conditions;
     }
 }

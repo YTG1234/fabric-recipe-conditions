@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 @Mixin(RecipeManager.class)
-public class RecipeManagerMixin {
+public abstract class RecipeManagerMixin {
     private static final Logger logger = LogManager.getLogger(RecipeManagerMixin.class);
 
     @Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/resource/ResourceManager;Lnet/minecraft/util/profiler/Profiler;)V",
@@ -29,12 +29,6 @@ public class RecipeManagerMixin {
         while (recipes.hasNext()) {
             Map.Entry<Identifier, JsonElement> entry = recipes.next();
             logger.debug("Attempting to load recipe " + entry.getKey().toString());
-
-            if (entry.getKey().getNamespace().equals("recipeconditions")) {
-                logger.debug("Recipe " + entry.getKey().toString() + " is an example recipe, removing.");
-                recipes.remove();
-                continue;
-            }
 
             JsonElement recipe = entry.getValue();
 
