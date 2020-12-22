@@ -3,9 +3,12 @@ package io.github.ytg1234.recipeconditions.impl.registry;
 import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
 import io.github.ytg1234.recipeconditions.api.RecipeConds;
 import io.github.ytg1234.recipeconditions.api.condition.base.RecipeCondition;
+import io.github.ytg1234.recipeconditions.api.condition.util.RecipeCondsUtil;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
+import net.fabricmc.loader.api.VersionParsingException;
+import net.fabricmc.loader.util.version.VersionPredicateParser;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -15,16 +18,23 @@ public final class RecipeConditions {
     public static final RecipeCondition
             MOD_LOADED =
             register("mod_loaded", modid -> FabricLoader.getInstance().isModLoaded(modid.string()));
-    public static final RecipeCondition MOD_LOADED_ADVANCMED = register("mod_loaded_advanced", data -> {
-        Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(data.object().get("id").getAsString());
-        if (mod.isPresent()) {
-            Version version = mod.get().getMetadata().getVersion();
-            RecipeCondsConstants.LOGGER.debug(version.toString());
-            return version.toString().equals(data.object().get("version").getAsString());
-        } else {
-            return false;
-        }
-    });
+    public static final RecipeCondition
+            MOD_LOADED_ADVANCMED =
+            register("mod_loaded_advanced", RecipeCondsUtil.objectParam(object -> {
+                Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(object.get("id").getAsString());
+                if (mod.isPresent()) {
+                    Version version = mod.get().getMetadata().getVersion();
+                    RecipeCondsConstants.LOGGER.debug(version.toString());
+                    try {
+                        return VersionPredicateParser.matches(version, object.get("version").getAsString());
+                    } catch (VersionParsingException e) {
+                        e.printStackTrace();
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }));
 
     // region Registry Conditions
     public static final RecipeCondition ITEM_REGISTERED = register("item", Registry.ITEM);
@@ -132,7 +142,10 @@ public final class RecipeConditions {
     private static RecipeCondition register(String id, Registry<?> registry) {
         RecipeCondsConstants.LOGGER.debug("Registering registry condition for registry " +
                                           registry.getKey().getValue().toString());
-        return register(id + "_registered", x -> registry.getIds().contains(new Identifier(x.string())));
+        return register(
+                id + "_registered",
+                RecipeCondsUtil.stringParam(x -> registry.getIds().contains(new Identifier(x)))
+                       );
     }
 
     private static RecipeCondition register(String id, RecipeCondition cond) {
