@@ -2,6 +2,7 @@ package io.github.ytg1234.recipeconditions.api.condition;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
 import io.github.ytg1234.recipeconditions.api.RecipeConds;
 import io.github.ytg1234.recipeconditions.api.condition.base.RecipeCondition;
 import io.github.ytg1234.recipeconditions.api.condition.base.RecipeConditionParameter;
@@ -100,10 +101,13 @@ public final class SingleCondition {
      * @return whether the condition matched
      */
     public boolean check() {
+        RecipeCondsConstants.LOGGER.debug("Checking condition " + RecipeConds.RECIPE_CONDITION.getId(condition) + " , SingleCondition inverted: " + negated);
         if (getParam() != null) {
+            RecipeCondsConstants.LOGGER.debug("Param is not null");
             return negated != condition.check(param);
         } else if (getParams() != null) {
-            return getParams().stream().allMatch(condition::check);
+            RecipeCondsConstants.LOGGER.debug("Params is not null");
+            return negated != getParams().stream().allMatch(condition::check);
         } else {
             throw new IllegalStateException("How did this happen? params and param are null!");
         }

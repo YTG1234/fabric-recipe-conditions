@@ -2,6 +2,7 @@ package io.github.ytg1234.recipeconditions.api.condition;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
 import net.minecraft.util.collection.DefaultedList;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,6 +43,7 @@ public final class EveryCondition {
      * @return whether they match
      */
     public boolean check() {
+        RecipeCondsConstants.LOGGER.debug("Checking an EveryCondition...");
         return getConditions().stream().allMatch(SingleCondition::check);
     }
 

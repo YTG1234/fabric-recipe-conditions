@@ -14,6 +14,31 @@ group = project.maven_group
 minecraft {
 }
 
+// region testmod
+
+import net.fabricmc.loom.task.RunClientTask
+import net.fabricmc.loom.task.RunServerTask
+
+sourceSets {
+    testmod {
+        compileClasspath += main.compileClasspath
+        runtimeClasspath += main.runtimeClasspath
+    }
+}
+
+task runTestmodClient(type: RunClientTask) {
+    classpath sourceSets.testmod.runtimeClasspath
+}
+task runTestmodServer(type: RunServerTask) {
+    classpath sourceSets.testmod.runtimeClasspath
+}
+
+dependencies {
+    testmodImplementation(sourceSets.main.output)
+}
+
+// endregion
+
 dependencies {
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"

@@ -19,7 +19,7 @@ public final class RecipeConditions {
         Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(data.object().get("id").getAsString());
         if (mod.isPresent()) {
             Version version = mod.get().getMetadata().getVersion();
-            System.out.println(version.toString());
+            RecipeCondsConstants.LOGGER.debug(version.toString());
             return version.toString().equals(data.object().get("version").getAsString());
         } else {
             return false;

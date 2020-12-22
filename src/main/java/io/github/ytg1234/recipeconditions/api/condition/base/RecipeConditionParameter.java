@@ -1,5 +1,6 @@
 package io.github.ytg1234.recipeconditions.api.condition.base;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -63,6 +64,7 @@ public final class RecipeConditionParameter {
         return value;
     }
 
+    // region I'd use extension functions if this was Kotlin
     public String string() {
         return value.getAsString();
     }
@@ -82,4 +84,13 @@ public final class RecipeConditionParameter {
     public JsonObject object() {
         return value.getAsJsonObject();
     }
+
+    public boolean bool() {
+        return value.getAsBoolean();
+    }
+
+    public JsonArray array() {
+        return value.getAsJsonArray();
+    }
+    // endregion
 }

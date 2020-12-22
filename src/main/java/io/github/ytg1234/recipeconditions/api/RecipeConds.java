@@ -9,8 +9,7 @@ import net.minecraft.util.registry.Registry;
 public final class RecipeConds {
     public static final Registry<RecipeCondition>
             RECIPE_CONDITION =
-            FabricRegistryBuilder.createSimple(
-                    RecipeCondition.class,
+            FabricRegistryBuilder.createSimple(RecipeCondition.class,
                     new Identifier(RecipeCondsConstants.MOD_ID, "recipe_condition")
                                               ).buildAndRegister();
 

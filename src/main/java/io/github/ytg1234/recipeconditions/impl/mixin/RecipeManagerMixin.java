@@ -30,12 +30,6 @@ public abstract class RecipeManagerMixin {
             Map.Entry<Identifier, JsonElement> entry = recipes.next();
             logger.debug("Attempting to load recipe " + entry.getKey().toString());
 
-            if (entry.getKey().getNamespace().equals("recipeconditions")) {
-                logger.debug("Recipe " + entry.getKey().toString() + " is an example recipe, removing.");
-                recipes.remove();
-                continue;
-            }
-
             JsonElement recipe = entry.getValue();
 
             if (!recipe.isJsonObject()) continue;

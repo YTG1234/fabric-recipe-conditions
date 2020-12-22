@@ -7,7 +7,6 @@ package io.github.ytg1234.recipeconditions.api.condition.base;
  */
 @FunctionalInterface
 public interface RecipeCondition {
-
     /**
      * Checks if the condition matches a certain parameter.
      * <p>
