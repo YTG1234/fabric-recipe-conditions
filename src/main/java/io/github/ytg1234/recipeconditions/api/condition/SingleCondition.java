@@ -68,7 +68,7 @@ public final class SingleCondition {
         if (entry.getValue().isJsonArray()) {
             DefaultedList<RecipeConditionParameter> values = DefaultedList.of();
             for (JsonElement element : entry.getValue().getAsJsonArray()) {
-                values.add(RecipeConditionParameter.fromJsonElement(element));
+                values.add(RecipeConditionParameter.createJsonElement(element));
             }
             boolean negated = false;
             if (entry.getKey().startsWith("!")) negated = true;
@@ -91,7 +91,7 @@ public final class SingleCondition {
                                                                           conditionId.toString() +
                                                                           "!"));
             }
-            return new SingleCondition(condition, RecipeConditionParameter.fromJsonElement(value), negated);
+            return new SingleCondition(condition, RecipeConditionParameter.createJsonElement(value), negated);
         }
     }
 
@@ -103,10 +103,10 @@ public final class SingleCondition {
     public boolean check() {
         RecipeCondsConstants.LOGGER.debug("Checking condition " + RecipeConds.RECIPE_CONDITION.getId(condition) + " , SingleCondition inverted: " + negated);
         if (getParam() != null) {
-            RecipeCondsConstants.LOGGER.debug("Param is not null");
+            RecipeCondsConstants.LOGGER.debug("Param is not null, " + param.toString());
             return negated != condition.check(param);
         } else if (getParams() != null) {
-            RecipeCondsConstants.LOGGER.debug("Params is not null");
+            RecipeCondsConstants.LOGGER.debug("Params is not null, " + params.toString());
             return negated != getParams().stream().allMatch(condition::check);
         } else {
             throw new IllegalStateException("How did this happen? params and param are null!");

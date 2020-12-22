@@ -31,8 +31,8 @@ public final class RecipeConditionParameter {
      *
      * @return new parameter instance
      */
-    public static RecipeConditionParameter fromString(@NotNull String string) {
-        return fromJsonElement(new JsonPrimitive(string));
+    public static RecipeConditionParameter createString(@NotNull String string) {
+        return createJsonElement(new JsonPrimitive(string));
     }
 
     /**
@@ -43,7 +43,7 @@ public final class RecipeConditionParameter {
      *
      * @return new parameter instance
      */
-    public static RecipeConditionParameter fromJsonElement(@NotNull JsonElement json) {
+    public static RecipeConditionParameter createJsonElement(@NotNull JsonElement json) {
         return new RecipeConditionParameter(json);
     }
 
@@ -55,8 +55,8 @@ public final class RecipeConditionParameter {
      *
      * @return new parameter instance.
      */
-    public static RecipeConditionParameter fromInt(int i) {
-        return fromJsonElement(new JsonPrimitive(i));
+    public static RecipeConditionParameter createInt(int i) {
+        return createJsonElement(new JsonPrimitive(i));
     }
 
     @NotNull
@@ -93,4 +93,9 @@ public final class RecipeConditionParameter {
         return value.getAsJsonArray();
     }
     // endregion
+
+    @Override
+    public String toString() {
+        return value.toString();
+    }
 }
