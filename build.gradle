@@ -122,12 +122,13 @@ import com.modrinth.minotaur.TaskModrinthUpload
 task publishModrinth(type: TaskModrinthUpload) {
     token = System.getenv("MODRINTH_API_TOKEN")
     projectId = project.modrinth_id
-    versionNumber = project.mod_version
+    versionNumber = "v${project.mod_version}"
     uploadFile = remapJar
     addGameVersion(project.minecraft_version)
     addLoader("fabric")
     addFile(sourcesJar)
     addFile(jar)
+    versionName = "Recipe Conditions v${project.mod_version}"
 
     releaseType = project.unstable == "true" ? "beta" : "release"
 
