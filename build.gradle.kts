@@ -7,7 +7,7 @@ plugins {
 object Globals {
     const val grp = "io.github.ytg1234"
     const val abn = "fabric-recipe-conditions"
-    const val version = "0.3.0"
+    const val version = "0.3.1"
 
     const val mcVer = "1.16.4"
     const val yarnBuild = "7"
@@ -21,6 +21,11 @@ object Globals {
 
 group = Globals.grp
 version = Globals.version
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
 
 // region testmod
 
@@ -120,10 +125,8 @@ tasks {
         if (JavaVersion.current().isJava9Compatible) {
             options.compilerArgs.addAll(listOf("--release", "8"))
         } else {
-            java {
-                sourceCompatibility = JavaVersion.VERSION_1_8
-                targetCompatibility = JavaVersion.VERSION_1_8
-            }
+            sourceCompatibility = "8"
+            targetCompatibility = "8"
         }
     }
 }
