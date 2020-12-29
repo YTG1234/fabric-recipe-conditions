@@ -12,7 +12,7 @@
     "item": "minecraft:beacon",
     "count": 1
   },
-  "conditions": [
+  "frc:conditions": [
     {
       "recipeconditions:item_registered": "minecraft:iron_ingot"
     }

@@ -18,7 +18,7 @@
     "item": "minecraft:beacon",
     "count": 1
   },
-  "conditions": [
+  "frc:conditions": [
     {
       "recipeconditions:mod_loaded": "optifabric"
     },

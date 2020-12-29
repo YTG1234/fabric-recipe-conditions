@@ -7,7 +7,7 @@ plugins {
 object Globals {
     const val grp = "io.github.ytg1234"
     const val abn = "fabric-recipe-conditions"
-    const val version = "0.3.1"
+    const val version = "0.4.0"
 
     const val mcVer = "1.16.4"
     const val yarnBuild = "7"
@@ -99,17 +99,17 @@ tasks {
         token = System.getenv("MODRINTH_API_TOKEN")
         projectId = Globals.modrinthId
         versionNumber = "v${Globals.version}"
-        uploadFile = remapJar
+        uploadFile = "${project.buildDir.absolutePath}/libs/${Globals.abn}-${Globals.version}.jar"
         addGameVersion(Globals.mcVer)
         addLoader("fabric")
-        addFile(jar)
+        addFile("${project.buildDir.absolutePath}/libs/${Globals.abn}-${Globals.version}-dev.jar")
+        addFile("${project.buildDir.absolutePath}/libs/${Globals.abn}-${Globals.version}-sources.jar")
         versionName = "Recipe Conditions v${Globals.version}"
 
         releaseType = if (Globals.unstable) "beta" else "release"
 
         dependsOn(remapJar)
 
-        addFile(project.tasks.getByName("sourcesJar"))
         dependsOn(project.tasks.getByName("sourcesJar"))
     }
 

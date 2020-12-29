@@ -26,10 +26,6 @@
     "fabricloader": ">=0.10.8",
     "fabric": "*"
   },
-  "_comment": "I could try to make it compatible with Forge sometime, but for now it's not.",
-  "breaks": {
-    "patchwork-recipes": "*"
-  },
   "custom": {
     "modmenu:api": true
   }
