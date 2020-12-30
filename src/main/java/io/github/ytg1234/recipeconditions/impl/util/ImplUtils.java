@@ -1,5 +1,6 @@
 package io.github.ytg1234.recipeconditions.impl.util;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Optional;
 
@@ -19,8 +20,17 @@ import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.util.version.VersionPredicateParser;
 
 public final class ImplUtils {
-    private static final Logger logger = LogManager.getLogger(ImplUtils.class);
+    public static final String CONDITIONS_MEMBER = "frc:conditions";
+    private static final Logger logger = LogManager.getLogger("Recipe Conditions");
 
+    /**
+     * Checks if a mod is loaded and matches a specific version range.
+     *
+     * @param id              the id of the mod to be checked
+     * @param requiredVersion the version or range to check for
+     *
+     * @return whether the requirement was satisfied
+     */
     public static boolean modVersionLoaded(String id, String requiredVersion) {
         Optional<ModContainer> mod = FabricLoader.getInstance().getModContainer(id);
         if (mod.isPresent()) {
@@ -35,6 +45,21 @@ public final class ImplUtils {
         return false;
     }
 
+    public static void tryLoadRecipes(Map<Identifier, JsonElement> map) {
+        Iterator<Map.Entry<Identifier, JsonElement>> recipes = map.entrySet().iterator(); // Used to avoid a CME
+
+        while (recipes.hasNext()) {
+            Map.Entry<Identifier, JsonElement> entry = recipes.next();
+            logger.info("Attempting to load recipe " + entry.getKey().toString());
+
+            try {
+                if (shouldRemoveRecipe(entry)) recipes.remove();
+            } catch (JsonParseException e) {
+                throw new JsonParseException("Failed to load recipe " + entry.getKey().toString() + "!", e);
+            }
+        }
+    }
+
     /**
      * Checks a recipe for conditions, processes them and decides whether to remove the recipe.
      *
@@ -44,16 +69,14 @@ public final class ImplUtils {
      *
      * @throws JsonParseException if the recipe has a conditions property but parsing it failed
      */
-    public static boolean shouldRemoveRecipe(Map.Entry<Identifier, JsonElement> entry, String conditionsMember) throws JsonParseException {
-        logger.info("Attempting to load recipe " + entry.getKey().toString());
-
+    private static boolean shouldRemoveRecipe(Map.Entry<Identifier, JsonElement> entry) throws JsonParseException {
         JsonElement recipe = entry.getValue();
 
         if (!recipe.isJsonObject()) return false;
-        if (!recipe.getAsJsonObject().has(conditionsMember)) return false;
+        if (!recipe.getAsJsonObject().has(CONDITIONS_MEMBER)) return false;
 
-        logger.debug("Recipe " + entry.getKey().toString() + " has a " + conditionsMember + " property.");
-        AnyCondition conditions = AnyCondition.fromJson(recipe.getAsJsonObject().get(conditionsMember).getAsJsonArray());
+        logger.debug("Recipe " + entry.getKey().toString() + " has a " + CONDITIONS_MEMBER + " property.");
+        AnyCondition conditions = AnyCondition.fromJson(recipe.getAsJsonObject().get(CONDITIONS_MEMBER).getAsJsonArray());
         if (!conditions.check()) {
             logger.debug("Conditions didn't match, removing recipe " + entry.getKey().toString());
             return true;
