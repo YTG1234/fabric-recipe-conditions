@@ -9,10 +9,10 @@ object Globals {
     const val abn = "fabric-recipe-conditions"
     const val version = "0.4.0"
 
-    const val mcVer = "1.16.4"
-    const val yarnBuild = "7"
+    const val mcVer = "1.16.5"
+    const val yarnBuild = "1"
 
-    const val loaderVer = "0.10.8"
+    const val loaderVer = "0.11.0"
     const val fapiVer = "0.29.1+1.16"
 
     const val modrinthId = "SfG9lyVw"
