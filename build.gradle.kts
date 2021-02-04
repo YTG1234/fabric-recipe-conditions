@@ -161,4 +161,3 @@ publishing {
 }
 
 apply(from = "https://raw.githubusercontent.com/YTG1234/scripts/main/scripts/gradle/artifactory.gradle")
-
