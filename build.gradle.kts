@@ -1,12 +1,3 @@
-buildscript {
-	repositories {
-		jcenter()
-	}
-	dependencies {
-		classpath("org.jfrog.buildinfo:build-info-extractor-gradle:4.+")
-	}
-}
-
 plugins {
 	id("fabric-loom") version "0.8-SNAPSHOT"
 	`maven-publish`
@@ -16,7 +7,7 @@ plugins {
 object Globals {
 	const val grp = "io.github.ytg1234"
 	const val abn = "fabric-recipe-conditions"
-	const val version = "0.4.0"
+	const val version = "0.4.1"
 
 	const val mcVer = "1.17"
 	const val yarnBuild = "6"
