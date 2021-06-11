@@ -22,7 +22,7 @@
     {
       "recipeconditions:mod_loaded_advanced": {
         "id": "fabric",
-        "version": "0.28.3+1.16"
+        "version": "0.34.10+1.17"
       },
       "!testmod:log_array": [
         [

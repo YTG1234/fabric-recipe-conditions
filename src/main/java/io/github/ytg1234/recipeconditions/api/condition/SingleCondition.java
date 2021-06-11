@@ -19,42 +19,28 @@ import java.util.Map;
  *
  * @author YTG1234
  */
-public final class SingleCondition {
-    @NotNull
-    private final RecipeCondition condition;
-    @Nullable
-    private final RecipeConditionParameter param;
-    @Nullable
-    private final DefaultedList<RecipeConditionParameter> params;
-
-    private final boolean negated;
-
+public record SingleCondition(RecipeCondition condition, @Nullable RecipeConditionParameter param, @Nullable DefaultedList<RecipeConditionParameter> params, boolean negated) {
     public SingleCondition(@NotNull RecipeCondition condition, @NotNull RecipeConditionParameter param) {
         this(condition, param, false);
     }
 
-    public SingleCondition(
-            @NotNull RecipeCondition condition, @NotNull RecipeConditionParameter param, boolean negated
-                          ) {
-        this.condition = condition;
-        this.param = param;
-        this.params = null;
-        this.negated = negated;
+    public SingleCondition(@NotNull RecipeCondition condition, @NotNull RecipeConditionParameter param, boolean negated) {
+    	this(condition, param, null, negated);
     }
 
     public SingleCondition(
-            @NotNull RecipeCondition condition, @NotNull DefaultedList<RecipeConditionParameter> params
-                          ) {
+            @NotNull RecipeCondition condition,
+            @NotNull DefaultedList<RecipeConditionParameter> params
+    ) {
         this(condition, params, false);
     }
 
     public SingleCondition(
-            @NotNull RecipeCondition condition, @NotNull DefaultedList<RecipeConditionParameter> params, boolean negated
-                          ) {
-        this.condition = condition;
-        this.params = params;
-        this.param = null;
-        this.negated = negated;
+            @NotNull RecipeCondition condition,
+            @NotNull DefaultedList<RecipeConditionParameter> params,
+            boolean negated
+    ) {
+        this(condition, null, params, negated);
     }
 
     /**
@@ -102,29 +88,14 @@ public final class SingleCondition {
      */
     public boolean check() {
         RecipeCondsConstants.LOGGER.debug("Checking condition " + RecipeConds.RECIPE_CONDITION.getId(condition) + " , SingleCondition inverted: " + negated);
-        if (getParam() != null) {
+        if (param != null) {
             RecipeCondsConstants.LOGGER.debug("Param is not null, " + param.toString());
             return negated != condition.check(param);
-        } else if (getParams() != null) {
+        } else if (params != null) {
             RecipeCondsConstants.LOGGER.debug("Params is not null, " + params.toString());
-            return negated != getParams().stream().allMatch(condition::check);
+            return negated != params.stream().allMatch(condition::check);
         } else {
             throw new IllegalStateException("How did this happen? params and param are null!");
         }
-    }
-
-    @Nullable
-    public RecipeConditionParameter getParam() {
-        return param;
-    }
-
-    @Nullable
-    public DefaultedList<RecipeConditionParameter> getParams() {
-        return params;
-    }
-
-    @NotNull
-    public RecipeCondition getCondition() {
-        return condition;
     }
 }

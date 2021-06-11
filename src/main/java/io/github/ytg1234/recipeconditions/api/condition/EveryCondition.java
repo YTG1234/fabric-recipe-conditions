@@ -4,6 +4,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
 import net.minecraft.util.collection.DefaultedList;
+
+import io.github.ytg1234.recipeconditions.api.condition.base.ConditionCheckable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -14,14 +16,7 @@ import java.util.Map;
  *
  * @author YTG1234
  */
-public final class EveryCondition {
-    @NotNull
-    private final DefaultedList<SingleCondition> conditions;
-
-    public EveryCondition(@NotNull DefaultedList<SingleCondition> conditions) {
-        this.conditions = conditions;
-    }
-
+public record EveryCondition(DefaultedList<SingleCondition> conditions) implements ConditionCheckable {
     /**
      * Parses a Json object to a list of {@link SingleCondition}s.
      *
@@ -44,11 +39,6 @@ public final class EveryCondition {
      */
     public boolean check() {
         RecipeCondsConstants.LOGGER.debug("Checking an EveryCondition...");
-        return getConditions().stream().allMatch(SingleCondition::check);
-    }
-
-    @NotNull
-    public DefaultedList<SingleCondition> getConditions() {
-        return conditions;
+        return conditions.stream().allMatch(SingleCondition::check);
     }
 }

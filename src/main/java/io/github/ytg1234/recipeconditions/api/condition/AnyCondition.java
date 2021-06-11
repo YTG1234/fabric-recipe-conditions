@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import io.github.ytg1234.recipeconditions.RecipeCondsConstants;
 import net.minecraft.util.collection.DefaultedList;
+
+import io.github.ytg1234.recipeconditions.api.condition.base.ConditionCheckable;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,18 +16,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author YTG1234
  */
-public final class AnyCondition {
-    /**
-     * The internal array of {@link EveryCondition}s, which is used when
-     * matching.
-     */
-    @NotNull
-    private final DefaultedList<EveryCondition> conditions;
-
-    public AnyCondition(@NotNull DefaultedList<EveryCondition> conditions) {
-        this.conditions = conditions;
-    }
-
+public record AnyCondition(DefaultedList<EveryCondition> conditions) implements ConditionCheckable {
     /**
      * Parses a Json array into a simple list of {@link EveryCondition}s.
      *
@@ -49,11 +40,6 @@ public final class AnyCondition {
      */
     public boolean check() {
         RecipeCondsConstants.LOGGER.debug("Checking an AnyCondition...");
-        return getConditions().stream().anyMatch(EveryCondition::check);
-    }
-
-    @NotNull
-    public DefaultedList<EveryCondition> getConditions() {
-        return conditions;
+        return conditions.stream().anyMatch(EveryCondition::check);
     }
 }
