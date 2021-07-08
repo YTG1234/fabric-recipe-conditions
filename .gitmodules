@@ -2,3 +2,6 @@
 	path = fabric-recipe-conditions.wiki
 	url = https://github.com/YTG1234/fabric-recipe-conditions.wiki.git
 
+[submodule "fabric-recipe-conditions.wiki.git"]
+	path = fabric-recipe-conditions.wiki.git
+	url = https://gitlab.com/ytg123-mods/fabric-recipe-conditions.wiki.git
